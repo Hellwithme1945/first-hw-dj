@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from phones.models import Phone
+from django.shortcuts import render, get_object_or_404
+from .models import Phone
 
 def show_catalog(request):
     sort = request.GET.get('sort')
@@ -12,3 +12,8 @@ def show_catalog(request):
     else:
         phones = Phone.objects.all()
     return render(request, 'catalog.html', {'phones': phones})
+
+
+def show_product(request, pk):
+    phone = get_object_or_404(Phone, pk=pk)
+    return render(request, 'product.html', {'phone': phone})
